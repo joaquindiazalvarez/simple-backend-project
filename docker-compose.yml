@@ -15,3 +15,4 @@ services:
       - MYSQL_DATABASE=nodeapp
       - MYSQL_USER=joaquin
       - MYSQL_PASSWORD=123456
+  
