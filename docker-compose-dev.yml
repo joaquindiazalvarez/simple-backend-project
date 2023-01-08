@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 services: 
   miapp:
     build:
@@ -13,6 +13,8 @@ services:
     depends_on:
       wait-for-db:
         condition: service_completed_successfully
+    networks:
+      - node-network
   mysql:  
     image: mysql
     ports: 
@@ -22,6 +24,8 @@ services:
       - MYSQL_DATABASE=nodeapp
       - MYSQL_USER=joaquin
       - MYSQL_PASSWORD=123456
+    networks:
+      - node-network
   phpmyadmin:
     image: phpmyadmin
     ports:
@@ -30,8 +34,15 @@ services:
       - PMA_HOST=mysql
     depends_on:
       - mysql
+    networks:
+      - node-network
   wait-for-db:
     image: atkrad/wait4x
     depends_on:
       - mysql
     command: tcp mysql:3306 -t 30s -i 250ms
+    networks:
+      - node-network
+networks:
+  node-network:
+    driver: bridge

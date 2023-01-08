@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const express = require ('express');
 const bodyparser = require ('body-parser');
 
@@ -6,13 +6,16 @@ const app = express();
 //configurando servidor express
 app.use(bodyparser.json());
 
+process.on('uncaughtException', function (err) {
+    console.log(err);
+  });
+
 //conexion mysql
 const mysqlConnection = mysql.createConnection({
 host: 'localhost',
-user: 'joaquin',
+user: 'root',
 password: '123456',
 database: 'nodeapp',
-multipleStatements: true
 });
 
 mysqlConnection.connect((err)=>{
