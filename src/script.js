@@ -12,8 +12,8 @@ process.on('uncaughtException', function (err) {
 
 //conexion mysql
 const mysqlConnection = mysql.createConnection({
-host: 'localhost',
-user: 'root',
+host: 'mysql',
+user: 'joaquin',
 password: '123456',
 database: 'nodeapp',
 });
