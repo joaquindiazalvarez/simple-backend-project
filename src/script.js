@@ -33,14 +33,18 @@ app.get('/', (req, res) => {
 })
 app.post('/learners', (req, res)=>{
   let learner = req.body;
-  if ()
-  var sql = "INSERT INTO learnerdetails (learner_id, learner_name, learner_email, course_id) VALUES (?, ?, ?, ?)"
-  mysqlConnection.query(sql,[learner.id, learner.name, learner.email, learner.course], (err, rows, field) =>{
-    if (!err)
-    console.log('insert succeed');
-    else
-    console.log(err);
-  })
+  if ("id" in learner && "name" in learner && "email" in learner && "course" in learner){
+    var sql = "INSERT INTO learnerdetails (learner_id, learner_name, learner_email, course_id) VALUES (?, ?, ?, ?)"
+    mysqlConnection.query(sql,[learner.id, learner.name, learner.email, learner.course], (err, rows, field) =>{
+      if (!err)
+      console.log('insert succeed');
+      else
+      console.log(err);
+    })
+    res.send(learner)
+  }
+  else
+  res.send("error, you must specify, id, name, email, course")
 
 });
 
