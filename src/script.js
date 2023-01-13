@@ -23,5 +23,26 @@ mysqlConnection.connect((err)=>{
     else console.log('Connection Failed!'+ JSON.stringify(err, undefined,2));
 });
 
+app.get('/', (req, res) => {
+  mysqlConnection.query('SELECT * FROM learnerdetails ',[req.params.id], (err, rows, fields) => {
+    if(!err)
+    res.send(rows);
+    else
+    console.log(err);
+  })
+})
+app.post('/learners', (req, res)=>{
+  let learner = req.body;
+  if ()
+  var sql = "INSERT INTO learnerdetails (learner_id, learner_name, learner_email, course_id) VALUES (?, ?, ?, ?)"
+  mysqlConnection.query(sql,[learner.id, learner.name, learner.email, learner.course], (err, rows, field) =>{
+    if (!err)
+    console.log('insert succeed');
+    else
+    console.log(err);
+  })
+
+});
+
 const port = process.env.PORT || 8082;
 app.listen(port, () => console.log(`Listening on port ${port}..`));
