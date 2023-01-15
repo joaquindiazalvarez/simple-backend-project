@@ -47,6 +47,15 @@ app.post('/learners', (req, res)=>{
   res.send("error, you must specify, id, name, email, course")
 
 });
-
+app.delete('/learners/:id', (req, res) => {
+  if("id" in req)
+  mysqlConnection.query('DELETE FROM learnerdetails WHERE learner_id = ?', [req.params.id], (err, rows, fields) => {
+  if (!err)
+  res.send('Learner Record deleted successfully.');
+  else
+  console.log(err);
+  res.send('err')
+  })
+  });
 const port = process.env.PORT || 8082;
 app.listen(port, () => console.log(`Listening on port ${port}..`));
