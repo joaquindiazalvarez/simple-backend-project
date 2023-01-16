@@ -47,8 +47,17 @@ app.post('/learners', (req, res)=>{
   res.send("error, you must specify, id, name, email, course")
 
 });
+app.put('/learners/:id', (req, res)=>{
+  let learner = req.body;
+  mysqlConnection.query('UPDATE learnerdetails SET learner_name = ?, learner_email = ?, course_id = ? WHERE learner_id = ?', [learner.name, learner.email, learner.course, req.params.id], (err, rows, fields) =>{
+  if(!err)
+  res.send('Learner Redcord updated successfully');
+  else  
+  res.send(err);
+  })
+})
 app.delete('/learners/:id', (req, res) => {
-  if("id" in req)
+  /* if("id" in req) */
   mysqlConnection.query('DELETE FROM learnerdetails WHERE learner_id = ?', [req.params.id], (err, rows, fields) => {
   if (!err)
   res.send('Learner Record deleted successfully.');
